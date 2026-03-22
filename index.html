@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SOCIAL PREVIEW -->
+    <meta property="og:title" content="Watch This Before It's Gone ⚡" />
+    <meta
+      property="og:description"
+      content="Subscribe first to unlock this video"
+    />
+    <meta property="og:image" content="https://yourdomain.com/thumbnail.jpg" />
+    <meta property="og:type" content="website" />
+
+    <title>Locked Video</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial;
+      }
+
+      body {
+        background: #0b0b0b;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 900px;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: clamp(20px, 4vw, 30px);
+        margin-bottom: 20px;
+      }
+      span {
+        color: #ffcc00;
+      }
+
+      .video-box {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      }
+
+      iframe {
+        width: 100%;
+        aspect-ratio: 16/9;
+        border: none;
+        filter: blur(10px) brightness(0.4);
+        pointer-events: none;
+      }
+
+      @media (max-width: 600px) {
+        iframe {
+          aspect-ratio: 9/16;
+        }
+      }
+
+      .overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.6);
+      }
+
+      .btn {
+        padding: 14px 28px;
+        background: #ff0000;
+        border: none;
+        border-radius: 50px;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .note {
+        margin-top: 12px;
+        font-size: 13px;
+        opacity: 0.7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Subscribe to <span>Unlock Video 🔒</span></h1>
+
+      <div class="video-box">
+        <iframe
+          id="video"
+          src="https://www.youtube.com/embed/0d3Z5pPARTU?autoplay=1&mute=1"
+        ></iframe>
+
+        <div class="overlay" id="overlay">
+          <button class="btn" onclick="goSubscribe()">
+            Subscribe & Continue
+          </button>
+          <div class="note">You will be redirected to subscribe</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // STEP 1: Redirect to YouTube subscribe page
+      function goSubscribe() {
+        localStorage.setItem("subscribed", "true");
+        window.location.href =
+          "https://www.youtube.com/@KnewIt352?sub_confirmation=1";
+      }
+
+      // STEP 2: When user comes back → unlock video
+      window.onload = function () {
+        if (localStorage.getItem("subscribed") === "true") {
+          document.getElementById("overlay").style.display = "none";
+
+          const iframe = document.getElementById("video");
+          iframe.style.filter = "none";
+          iframe.style.pointerEvents = "auto";
+          iframe.src = "https://www.youtube.com/embed/0d3Z5pPARTU?autoplay=1";
+        }
+      };
+    </script>
+  </body>
+</html>
