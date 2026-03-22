@@ -4,13 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- SOCIAL PREVIEW -->
+    <!-- SOCIAL PREVIEW (FIXED) -->
     <meta property="og:title" content="Watch This Before It's Gone ⚡" />
     <meta
       property="og:description"
       content="Subscribe first to unlock this video"
     />
-    <meta property="og:image" content="https://yourdomain.com/thumbnail.jpg" />
+    <meta
+      property="og:image"
+      content="https://yt-funnel-page.vercel.app/thumbnail.jpg"
+    />
     <meta property="og:type" content="website" />
 
     <title>Locked Video</title>
@@ -102,37 +105,22 @@
       <div class="video-box">
         <iframe
           id="video"
-          src="https://www.youtube.com/embed/0d3Z5pPARTU?autoplay=1&mute=1"
+          src="https://www.youtube.com/embed/0d3Z5pPARTU"
         ></iframe>
 
-        <div class="overlay" id="overlay">
-          <button class="btn" onclick="goSubscribe()">
-            Subscribe & Continue
-          </button>
-          <div class="note">You will be redirected to subscribe</div>
+        <div class="overlay">
+          <button class="btn" onclick="goSubscribe()">Subscribe & Watch</button>
+          <div class="note">You will be redirected to YouTube</div>
         </div>
       </div>
     </div>
 
     <script>
-      // STEP 1: Redirect to YouTube subscribe page
+      // ONLY REDIRECT (NO AUTO UNLOCK)
       function goSubscribe() {
-        localStorage.setItem("subscribed", "true");
         window.location.href =
           "https://www.youtube.com/@KnewIt352?sub_confirmation=1";
       }
-
-      // STEP 2: When user comes back → unlock video
-      window.onload = function () {
-        if (localStorage.getItem("subscribed") === "true") {
-          document.getElementById("overlay").style.display = "none";
-
-          const iframe = document.getElementById("video");
-          iframe.style.filter = "none";
-          iframe.style.pointerEvents = "auto";
-          iframe.src = "https://www.youtube.com/embed/0d3Z5pPARTU?autoplay=1";
-        }
-      };
     </script>
   </body>
 </html>
